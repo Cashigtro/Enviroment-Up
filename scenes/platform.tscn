@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://cycpjc1x4aegn"]
+
+[ext_resource type="Script" path="res://scripts/below_platform.gd" id="1_b52kl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhk6p"]
+size = Vector2(213, 35)
+
+[node name="platform" type="StaticBody2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 30.0
+offset_bottom = 30.0
+scale = Vector2(5.32, 0.880001)
+
+[node name="platform_collision" type="CollisionShape2D" parent="."]
+position = Vector2(96.5, 7.5)
+shape = SubResource("RectangleShape2D_bhk6p")
+
+[node name="below_platform" type="Area2D" parent="."]
+script = ExtResource("1_b52kl")
+
+[node name="collider" type="CollisionShape2D" parent="below_platform"]
+position = Vector2(96, 43)
+shape = SubResource("RectangleShape2D_bhk6p")
+
+[connection signal="body_entered" from="below_platform" to="below_platform" method="_on_body_entered"]

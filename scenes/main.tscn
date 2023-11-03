@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw31mc8rmgi4g"]
+
+[ext_resource type="Texture2D" uid="uid://bcdw6q2tuxxrg" path="res://clouds.png" id="1_6rc5k"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_7tk1n"]
+[ext_resource type="PackedScene" uid="uid://cx068j6jtr15a" path="res://scenes/player.tscn" id="2_8b0qv"]
+[ext_resource type="PackedScene" uid="uid://cycpjc1x4aegn" path="res://scenes/platform.tscn" id="3_atn6h"]
+[ext_resource type="Script" path="res://scripts/platforms.gd" id="3_qloub"]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_7tk1n")
+
+[node name="bg" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = -125.0
+offset_right = 1507.0
+offset_bottom = 2176.0
+scale = Vector2(0.59, 0.59)
+texture = ExtResource("1_6rc5k")
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="test" type="Label" parent="ui"]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="player" parent="." instance=ExtResource("2_8b0qv")]
+position = Vector2(261, 1009)
+
+[node name="platforms" type="Node2D" parent="."]
+script = ExtResource("3_qloub")
+
+[node name="platform" parent="platforms" instance=ExtResource("3_atn6h")]
+position = Vector2(221, 1122)
+
+[node name="platform2" parent="platforms" instance=ExtResource("3_atn6h")]
+position = Vector2(221, 867)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-3, 1139)
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
