@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://js2gcpj6cu71"]
+
+[ext_resource type="Texture2D" uid="uid://0jukf5385cgu" path="res://assets/images/arrow.png" id="1_ad1y6"]
+
+[node name="arrow_notif" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0962031, 0.0962031)
+texture = ExtResource("1_ad1y6")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 104.0
+offset_top = -108.0
+offset_right = 276.0
+offset_bottom = 102.0
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 151
+text = "+1"
