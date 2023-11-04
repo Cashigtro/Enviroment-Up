@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://cw31mc8rmgi4g"]
+[gd_scene load_steps=17 format=3 uid="uid://cw31mc8rmgi4g"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_7tk1n"]
+[ext_resource type="Shader" uid="uid://c7rf2bcgw34bl" path="res://scripts/main.tres" id="1_bbqkb"]
 [ext_resource type="PackedScene" uid="uid://cx068j6jtr15a" path="res://scenes/player.tscn" id="2_8b0qv"]
 [ext_resource type="PackedScene" uid="uid://d2h7ojqlk1xv0" path="res://scenes/game_over.tscn" id="2_qvirj"]
 [ext_resource type="Texture2D" uid="uid://c6fb72wwvk1kl" path="res://assets/images/pollution.png" id="3_6d3k8"]
@@ -9,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://0jukf5385cgu" path="res://assets/images/arrow.png" id="4_2a8c4"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="6_l30ci"]
 [ext_resource type="AudioStream" uid="uid://bu68b7q3wgfll" path="res://assets/audio/Soft Hearted.mp3" id="7_yp2rr"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_63pwq"]
+shader = ExtResource("1_bbqkb")
 
 [sub_resource type="Animation" id="Animation_kbpsq"]
 resource_name = "in"
@@ -68,6 +72,7 @@ _data = {
 }
 
 [node name="main" type="Node2D"]
+material = SubResource("ShaderMaterial_63pwq")
 script = ExtResource("1_7tk1n")
 
 [node name="ui" type="CanvasLayer" parent="."]
