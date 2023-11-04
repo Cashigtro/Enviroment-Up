@@ -1,7 +1,6 @@
-[gd_scene load_steps=17 format=3 uid="uid://cw31mc8rmgi4g"]
+[gd_scene load_steps=18 format=3 uid="uid://cw31mc8rmgi4g"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_7tk1n"]
-[ext_resource type="Shader" uid="uid://c7rf2bcgw34bl" path="res://scripts/main.tres" id="1_bbqkb"]
 [ext_resource type="PackedScene" uid="uid://cx068j6jtr15a" path="res://scenes/player.tscn" id="2_8b0qv"]
 [ext_resource type="PackedScene" uid="uid://d2h7ojqlk1xv0" path="res://scenes/game_over.tscn" id="2_qvirj"]
 [ext_resource type="Texture2D" uid="uid://c6fb72wwvk1kl" path="res://assets/images/pollution.png" id="3_6d3k8"]
@@ -9,10 +8,24 @@
 [ext_resource type="Script" path="res://scripts/platforms.gd" id="3_qloub"]
 [ext_resource type="Texture2D" uid="uid://0jukf5385cgu" path="res://assets/images/arrow.png" id="4_2a8c4"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="6_l30ci"]
+[ext_resource type="Shader" path="res://scripts/main.gdshader" id="7_vjmlt"]
 [ext_resource type="AudioStream" uid="uid://bu68b7q3wgfll" path="res://assets/audio/Soft Hearted.mp3" id="7_yp2rr"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_63pwq"]
-shader = ExtResource("1_bbqkb")
+[sub_resource type="Environment" id="Environment_5dqkm"]
+background_mode = 3
+background_color = Color(0, 0.615686, 0.741176, 1)
+ambient_light_color = Color(0, 0.141176, 1, 1)
+ambient_light_energy = 16.0
+glow_normalized = true
+glow_intensity = 8.0
+glow_strength = 2.0
+glow_blend_mode = 1
+glow_hdr_threshold = 0.65
+glow_hdr_scale = 4.0
+glow_hdr_luminance_cap = 6.55
+glow_map_strength = 1.0
+volumetric_fog_density = 2.9285
+adjustment_saturation = 8.0
 
 [sub_resource type="Animation" id="Animation_kbpsq"]
 resource_name = "in"
@@ -71,9 +84,28 @@ _data = {
 "shrink": SubResource("Animation_2wdb2")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_swmmi"]
+shader = ExtResource("7_vjmlt")
+shader_parameter/player_position = Vector2(0.5, 0.5)
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/MULTIPLIER = 2.0
+shader_parameter/SCALE = 5.406
+shader_parameter/SOFTNESS = 0.665
+
 [node name="main" type="Node2D"]
-material = SubResource("ShaderMaterial_63pwq")
 script = ExtResource("1_7tk1n")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5dqkm")
+
+[node name="red" type="ColorRect" parent="."]
+offset_left = -1152.0
+offset_top = -15040.0
+offset_right = -1112.0
+offset_bottom = -15006.0
+scale = Vector2(103.971, 218.181)
+pivot_offset = Vector2(18.2042, 15.7016)
+color = Color(1, 0.172549, 0, 1)
 
 [node name="ui" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -170,9 +202,6 @@ script = ExtResource("3_qloub")
 [node name="platform" parent="platforms" instance=ExtResource("3_atn6h")]
 position = Vector2(221, 1122)
 
-[node name="platform2" parent="platforms" instance=ExtResource("3_atn6h")]
-position = Vector2(221, 867)
-
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
@@ -184,4 +213,21 @@ script = ExtResource("6_l30ci")
 wait_time = 1.523
 autostart = true
 
+[node name="post_processing" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="vignette" type="ColorRect" parent="post_processing"]
+material = SubResource("ShaderMaterial_swmmi")
+layout_mode = 0
+offset_left = -5718.1
+offset_top = -7631.75
+offset_right = -5579.1
+offset_bottom = -7489.75
+scale = Vector2(18.36, 33.0058)
+pivot_offset = Vector2(69.5, 71.003)
+
+[connection signal="arrow_vs_pollution" from="." to="post_processing/vignette" method="_on_main_arrow_vs_pollution"]
 [connection signal="play_button_pressed" from="ui/game_over" to="." method="_on_game_over_play_button_pressed"]

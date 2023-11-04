@@ -14,7 +14,13 @@ var tween
 @onready var player_move_away = $ui/anim/player_move_away
 @onready var pollution_label = $ui/scores/score_containers/pollution/label
 @onready var arrow_label = $ui/scores/score_containers/arrow/label
+@onready var vignette = $post_processing/vignette
+var shader_value = 2
+@onready var red = $red
+var color_value = Color(1,0,0,0)
+@onready var blue = $blue
 
+signal arrow_vs_pollution()
 
 func _ready():
 	get_tree().create_timer(1).timeout.connect(
@@ -26,9 +32,10 @@ func _ready():
 			$music.play()
 	)
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_pressed("reset"):
 		get_tree().reload_current_scene()
+
 	if player_on_screen.is_on_screen() == false and timer_done and player.global_position.y > camera.global_position.y:
 		game_over()
 	if global.score < 0:
@@ -39,14 +46,33 @@ func _process(delta):
 	
 	objects_label.text = "Objects: {}".format([platforms.get_child_count()], "{}")
 	
+	if global.pollution_score > global.arrow_score:
+		if color_value.a < 1:
+			color_value.a += 0.0001
+		if shader_value > 0.001:
+			shader_value -= 0.001
+	else:
+		if color_value.a > 0:
+			color_value.a -= 0.0001
+
+		if shader_value < 2:
+			shader_value += 0.001
+	
+	if 0.001 > shader_value:
+		game_over()
+	vignette.material.set_shader_parameter("SCALE", shader_value)
+	vignette.position = player.position
+	red.color = color_value
+	red.position = player.position
+
+
 func reset_scores():
 	global.score = 0
 	global.arrow_score = 0
 	global.pollution_score = 0	
 
 func game_over():
-	
-	print("ASDAS")
+
 
 	game_over_screen.visible = true
 	game_over_anim_player.play("in")

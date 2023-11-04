@@ -16,6 +16,9 @@ var spawn_location = Vector2(1,1)
 @export var platform_y_seperation = 260
 @export var platform_x_amount = 2
 @export var spawn_per_timer = 10
+@export var pollution_chance = 6
+@export var launcher_chance = 10
+
 var prev_platform_seperation = 0
 @onready var deletion_timer = $"../deletion_timer"
 
@@ -25,7 +28,7 @@ var instantiated_objects = []
 func _ready():
 	spawn_platform()
 	timer.timeout.connect(spawn_platform)
-
+	
 
 func spawn_platform():
 	if player.position.y - 500 < prev_platform_seperation+ 2100:
@@ -38,12 +41,12 @@ func spawn_platform():
 				)
 				var p = platform.instantiate()
 				p.position = spawn_location
-				if randi_range(0,15) == 15:
+				if randi_range(0,launcher_chance) == 1:
 					var l = launcher.instantiate()
 					l.position = Vector2(p.position.x+100, p.position.y-60)
 					platforms.add_child(l)
 					instantiated_objects.append(l)
-				if randi_range(0,15) == 15:
+				if randi_range(0,pollution_chance) == 1:
 					var pol = pollution.instantiate()
 					pol.position = Vector2(p.position.x+100, p.position.y-60)
 					platforms.add_child(pol)
@@ -53,5 +56,5 @@ func spawn_platform():
 			
 
 			prev_platform_seperation -= platform_y_seperation
-	print(str(prev_platform_seperation) + "  " + str(player.position.y-500))
+#	print(str(prev_platform_seperation) + "  " + str(player.position.y-500))
 			
