@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://t5630so5qwho"]
+
+[ext_resource type="Script" path="res://scripts/my_button.gd" id="1_aiucr"]
+[ext_resource type="AudioStream" uid="uid://c6jsmj5me24vr" path="res://assets/audio/click_down.mp3" id="2_cyvon"]
+[ext_resource type="AudioStream" uid="uid://b7f7sywhsi6b0" path="res://assets/audio/click_up.mp3" id="3_ax3gf"]
+
+[node name="my_button" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "my button"
+script = ExtResource("1_aiucr")
+
+[node name="down" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_cyvon")
+volume_db = 8.0
+
+[node name="up" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_ax3gf")
+volume_db = 8.0
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

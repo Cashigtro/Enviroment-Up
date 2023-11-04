@@ -1,0 +1,88 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3v8vcindm375"]
+
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_64qqg"]
+[ext_resource type="Texture2D" uid="uid://c33h1auqowl13" path="res://player.png" id="1_xgpvo"]
+[ext_resource type="AudioStream" uid="uid://cuw0bx3tidpkh" path="res://assets/audio/music1.wav" id="2_0ikeo"]
+[ext_resource type="PackedScene" uid="uid://t5630so5qwho" path="res://scenes/my_button.tscn" id="3_18pj2"]
+
+[sub_resource type="Animation" id="Animation_q43qa"]
+resource_name = "animation"
+length = 2.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.7, 1.4, 2.1),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2),
+"update": 0,
+"values": [Vector2(0.216785, 0.216785), Vector2(0.327, 0.327), Vector2(0.217, 0.217)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.7, 2.1, 2.8),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2, 0.2),
+"update": 0,
+"values": [Vector2(-1208, -585), Vector2(-650.635, -585), Vector2(-650.635, -585), Vector2(-10, -585)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.7, 1.4, 2.1),
+"transitions": PackedFloat32Array(0.2, 0.2, 0.2),
+"update": 0,
+"values": [0.0, 0.261799, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qvrgi"]
+_data = {
+"animation": SubResource("Animation_q43qa")
+}
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_64qqg")
+
+[node name="player" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -1208.0
+offset_top = -585.0
+offset_right = 787.86
+offset_bottom = 1815.0
+scale = Vector2(0.216792, 0.216792)
+pivot_offset = Vector2(992, 1200)
+texture = ExtResource("1_xgpvo")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="player"]
+autoplay = "animation"
+libraries = {
+"": SubResource("AnimationLibrary_qvrgi")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_0ikeo")
+autoplay = true
+max_distance = 4.34525e+13
+
+[node name="my_button" parent="." instance=ExtResource("3_18pj2")]
+layout_mode = 0
+text = "play"
+
+[connection signal="button_up" from="my_button" to="." method="_on_my_button_button_up"]

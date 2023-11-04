@@ -1,30 +1,66 @@
-[gd_scene load_steps=6 format=3 uid="uid://cw31mc8rmgi4g"]
+[gd_scene load_steps=9 format=3 uid="uid://cw31mc8rmgi4g"]
 
-[ext_resource type="Texture2D" uid="uid://bcdw6q2tuxxrg" path="res://clouds.png" id="1_6rc5k"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_7tk1n"]
 [ext_resource type="PackedScene" uid="uid://cx068j6jtr15a" path="res://scenes/player.tscn" id="2_8b0qv"]
+[ext_resource type="PackedScene" uid="uid://d2h7ojqlk1xv0" path="res://scenes/game_over.tscn" id="2_qvirj"]
 [ext_resource type="PackedScene" uid="uid://cycpjc1x4aegn" path="res://scenes/platform.tscn" id="3_atn6h"]
 [ext_resource type="Script" path="res://scripts/platforms.gd" id="3_qloub"]
+[ext_resource type="Script" path="res://scripts/camera.gd" id="6_l30ci"]
+
+[sub_resource type="Animation" id="Animation_kbpsq"]
+resource_name = "in"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("game_over:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.2, 1),
+"update": 0,
+"values": [Vector2(720, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g7p3j"]
+_data = {
+"in": SubResource("Animation_kbpsq")
+}
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_7tk1n")
 
-[node name="bg" type="TextureRect" parent="."]
-texture_filter = 1
-offset_left = -125.0
-offset_right = 1507.0
-offset_bottom = 2176.0
-scale = Vector2(0.59, 0.59)
-texture = ExtResource("1_6rc5k")
-
 [node name="ui" type="CanvasLayer" parent="."]
+process_mode = 3
 
-[node name="test" type="Label" parent="ui"]
+[node name="score" type="Label" parent="ui"]
 offset_right = 40.0
 offset_bottom = 23.0
+text = "Score: 0"
+
+[node name="objects" type="Label" parent="ui"]
+offset_top = 37.0
+offset_right = 40.0
+offset_bottom = 63.0
+text = "sc"
+
+[node name="game_over" parent="ui" instance=ExtResource("2_qvirj")]
+visible = false
+offset_right = 0.00012207
+
+[node name="anim" type="Control" parent="ui"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="game_over_anim_player" type="AnimationPlayer" parent="ui/anim"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_g7p3j")
+}
 
 [node name="player" parent="." instance=ExtResource("2_8b0qv")]
-position = Vector2(261, 1009)
+position = Vector2(334, 581)
 
 [node name="platforms" type="Node2D" parent="."]
 script = ExtResource("3_qloub")
@@ -35,8 +71,11 @@ position = Vector2(221, 1122)
 [node name="platform2" parent="platforms" instance=ExtResource("3_atn6h")]
 position = Vector2(221, 867)
 
-[node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(-3, 1139)
-
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="camera" type="Camera2D" parent="."]
+position = Vector2(352, 661)
+script = ExtResource("6_l30ci")
+
+[connection signal="play_button_pressed" from="ui/game_over" to="." method="_on_game_over_play_button_pressed"]
