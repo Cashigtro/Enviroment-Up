@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://cx068j6jtr15a"]
+[gd_scene load_steps=5 format=3 uid="uid://cx068j6jtr15a"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_11enx"]
 [ext_resource type="Texture2D" uid="uid://c33h1auqowl13" path="res://player.png" id="1_kejn0"]
+[ext_resource type="AudioStream" uid="uid://d3umhigb05bhu" path="res://assets/audio/jump.mp3" id="3_s01qn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucyag"]
 size = Vector2(111, 20)
@@ -10,6 +11,7 @@ size = Vector2(111, 20)
 script = ExtResource("1_11enx")
 
 [node name="sprite" type="Sprite2D" parent="."]
+modulate = Color(0.537255, 1, 1, 1)
 scale = Vector2(0.082721, 0.082721)
 texture = ExtResource("1_kejn0")
 
@@ -35,3 +37,7 @@ position = Vector2(7.5, 90)
 shape = SubResource("RectangleShape2D_ucyag")
 
 [node name="visable" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="jump_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_s01qn")
+volume_db = 5.0

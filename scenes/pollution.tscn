@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://berht3dx21dmf"]
+
+[ext_resource type="Script" path="res://scripts/pollution.gd" id="1_gl2ju"]
+[ext_resource type="Texture2D" uid="uid://c6fb72wwvk1kl" path="res://assets/images/pollution.png" id="2_l4kv1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssfl7"]
+size = Vector2(97, 114)
+
+[node name="launcher" type="Area2D"]
+script = ExtResource("1_gl2ju")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_ssfl7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0916248, 0.0916248)
+texture = ExtResource("2_l4kv1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
