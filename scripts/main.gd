@@ -19,6 +19,7 @@ var shader_value = 2
 @onready var red = $red
 var color_value = Color(1,0,0,0)
 @onready var blue = $blue
+@onready var space = $space
 
 signal arrow_vs_pollution()
 
@@ -32,7 +33,7 @@ func _ready():
 			$music.play()
 	)
 
-func _process(_delta):
+func _physics_process(_delta):
 	if Input.is_action_pressed("reset"):
 		get_tree().reload_current_scene()
 
@@ -64,6 +65,15 @@ func _process(_delta):
 	vignette.position = Vector2(player.position.x - 60, player.position.y - 160)
 	red.color = color_value
 	red.position = player.position
+	
+	
+	
+#	space.position = Vector2(space.position.x, snapped(player.position.y, 10))
+#	lerp(player.position.y, snapped(player.position.y, 10), 1)
+	space.position.y = player.position.y
+#	create_tween().tween_property(space, "position", Vector2(space.position.x, player.position.y), 2).set_ease(Tween.EASE_IN_OUT)
+	
+	
 	$ui/Button.pressed.connect(
 		func what():
 			global.pollution_score = 323

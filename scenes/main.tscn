@@ -1,6 +1,7 @@
-[gd_scene load_steps=18 format=3 uid="uid://cw31mc8rmgi4g"]
+[gd_scene load_steps=19 format=3 uid="uid://cw31mc8rmgi4g"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_7tk1n"]
+[ext_resource type="Texture2D" uid="uid://bwo7y80l3juyp" path="res://assets/images/space.jpg" id="2_1omj0"]
 [ext_resource type="PackedScene" uid="uid://cx068j6jtr15a" path="res://scenes/player.tscn" id="2_8b0qv"]
 [ext_resource type="PackedScene" uid="uid://d2h7ojqlk1xv0" path="res://scenes/game_over.tscn" id="2_qvirj"]
 [ext_resource type="Texture2D" uid="uid://c6fb72wwvk1kl" path="res://assets/images/pollution.png" id="3_6d3k8"]
@@ -98,6 +99,16 @@ script = ExtResource("1_7tk1n")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5dqkm")
 
+[node name="space" type="TextureRect" parent="."]
+visible = false
+offset_left = -1575.0
+offset_top = -614.0
+offset_right = 2264.0
+offset_bottom = 1785.0
+rotation = -1.57079
+pivot_offset = Vector2(1919, 1199)
+texture = ExtResource("2_1omj0")
+
 [node name="red" type="ColorRect" parent="."]
 offset_left = -1152.0
 offset_top = -15040.0
@@ -188,6 +199,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Button" type="Button" parent="ui"]
+visible = false
 offset_left = 254.0
 offset_top = 24.0
 offset_right = 706.0
