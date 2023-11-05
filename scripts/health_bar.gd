@@ -11,6 +11,6 @@ func _process(_delta):
 		add_theme_color_override("font_color", Color(255,0,0,1))
 	else:
 		add_theme_color_override("font_color", Color(0,255,0,1))
-	print(max_value)
+
 	
 	value = global.score

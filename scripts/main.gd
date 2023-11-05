@@ -61,10 +61,13 @@ func _process(_delta):
 	if 0.001 > shader_value:
 		game_over()
 	vignette.material.set_shader_parameter("SCALE", shader_value)
-	vignette.position = player.position
+	vignette.position = Vector2(player.position.x - 60, player.position.y - 160)
 	red.color = color_value
 	red.position = player.position
-
+	$ui/Button.pressed.connect(
+		func what():
+			global.pollution_score = 323
+	)
 
 func reset_scores():
 	global.score = 0

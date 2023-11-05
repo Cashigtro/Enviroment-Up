@@ -187,6 +187,13 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Button" type="Button" parent="ui"]
+offset_left = 254.0
+offset_top = 24.0
+offset_right = 706.0
+offset_bottom = 149.0
+text = "debufg"
+
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3
 stream = ExtResource("7_yp2rr")
@@ -228,6 +235,9 @@ offset_right = -5579.1
 offset_bottom = -7489.75
 scale = Vector2(18.36, 33.0058)
 pivot_offset = Vector2(69.5, 71.003)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(338, 511)
 
 [connection signal="arrow_vs_pollution" from="." to="post_processing/vignette" method="_on_main_arrow_vs_pollution"]
 [connection signal="play_button_pressed" from="ui/game_over" to="." method="_on_game_over_play_button_pressed"]
