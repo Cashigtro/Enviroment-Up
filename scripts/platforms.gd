@@ -31,7 +31,7 @@ func _ready():
 	
 
 func spawn_platform():
-	if player.position.y - 500 < prev_platform_seperation+ 2100:
+	if player.position.y - 500 < prev_platform_seperation + 2100:
 		for e in range(spawn_per_timer):
 			for i in range(platform_x_amount):
 				spawn_location = Vector2i(
@@ -39,7 +39,19 @@ func spawn_platform():
 					(prev_platform_seperation + platform_y_seperation) + 720
 					
 				)
+#				var delete_timer = Timer.new()
+#				delete_timer.wait_time = 10
+#				delete_timer.timeout.connect(
+#					func kill_platform():
+#						delete_timer.get_parent().queue_free()
+#						print("Deleted a platfrom")
+#				)
+				
 				var p = platform.instantiate()
+#				delete_timer.start()
+#				p.add_child(delete_timer)
+				
+				
 				p.position = spawn_location
 				if randi_range(0,launcher_chance) == 1:
 					var l = launcher.instantiate()
