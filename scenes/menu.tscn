@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3v8vcindm375"]
+[gd_scene load_steps=8 format=3 uid="uid://c3v8vcindm375"]
 
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_64qqg"]
 [ext_resource type="Texture2D" uid="uid://c33h1auqowl13" path="res://player.png" id="1_xgpvo"]
 [ext_resource type="AudioStream" uid="uid://cuw0bx3tidpkh" path="res://assets/audio/music1.wav" id="2_0ikeo"]
 [ext_resource type="PackedScene" uid="uid://t5630so5qwho" path="res://scenes/my_button.tscn" id="3_18pj2"]
+[ext_resource type="Script" path="res://scripts/OptionButton.gd" id="5_y88k3"]
 
 [sub_resource type="Animation" id="Animation_q43qa"]
 resource_name = "animation"
@@ -101,5 +102,17 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 101
 text = "Play"
+
+[node name="difficulty" type="OptionButton" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 203.0
+offset_right = -133.0
+offset_bottom = -1243.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_y88k3")
 
 [connection signal="button_up" from="VBoxContainer/my_button" to="." method="_on_my_button_button_up"]

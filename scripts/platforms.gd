@@ -27,10 +27,12 @@ var instantiated_objects = []
 
 func _ready():
 	spawn_platform()
+	difficulty()
 	timer.timeout.connect(spawn_platform)
 	
 
 func spawn_platform():
+	difficulty()
 	if player.position.y - 500 < prev_platform_seperation + 2100:
 		for e in range(spawn_per_timer):
 			for i in range(platform_x_amount):
@@ -70,3 +72,25 @@ func spawn_platform():
 			prev_platform_seperation -= platform_y_seperation
 #	print(str(prev_platform_seperation) + "  " + str(player.position.y-500))
 			
+func difficulty():
+	print(global.difficulty)
+	if global.difficulty == 1:
+		launcher_chance = 0
+		pollution_chance = 0
+	elif global.difficulty == 2:
+		launcher_chance = 2
+		pollution_chance = 0
+	elif global.difficulty == 3:
+		launcher_chance = 3
+		pollution_chance = 5
+	elif global.difficulty == 4:
+		launcher_chance = 10
+		pollution_chance = 4
+	elif global.difficulty == 5:
+		launcher_chance = 20
+		pollution_chance = 2
+	elif global.difficulty == 6:
+		print("SD")
+		launcher_chance = 0
+		pollution_chance = 1
+
