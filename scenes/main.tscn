@@ -99,6 +99,15 @@ script = ExtResource("1_7tk1n")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_5dqkm")
 
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2(0, 2399)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("2_1omj0")
+centered = false
+
 [node name="space" type="TextureRect" parent="."]
 visible = false
 offset_left = -1575.0
