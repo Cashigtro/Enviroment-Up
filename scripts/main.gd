@@ -19,7 +19,7 @@ var shader_value = 2
 @onready var red = $red
 var color_value = Color(1,0,0,0)
 @onready var blue = $blue
-@onready var space = $space
+
 
 signal arrow_vs_pollution()
 
@@ -70,7 +70,7 @@ func _physics_process(_delta):
 	
 #	space.position = Vector2(space.position.x, snapped(player.position.y, 10))
 #	lerp(player.position.y, snapped(player.position.y, 10), 1)
-	space.position.y = player.position.y
+
 #	create_tween().tween_property(space, "position", Vector2(space.position.x, player.position.y), 2).set_ease(Tween.EASE_IN_OUT)
 	
 	

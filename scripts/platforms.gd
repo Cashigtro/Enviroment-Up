@@ -32,7 +32,7 @@ func _ready():
 	
 
 func spawn_platform():
-	difficulty()
+#	difficulty()
 	if player.position.y - 500 < prev_platform_seperation + 2100:
 		for e in range(spawn_per_timer):
 			for i in range(platform_x_amount):
@@ -53,7 +53,7 @@ func spawn_platform():
 #				delete_timer.start()
 #				p.add_child(delete_timer)
 				
-				
+#
 				p.position = spawn_location
 				if randi_range(0,launcher_chance) == 1:
 					var l = launcher.instantiate()
@@ -73,7 +73,7 @@ func spawn_platform():
 #	print(str(prev_platform_seperation) + "  " + str(player.position.y-500))
 			
 func difficulty():
-	print(global.difficulty)
+#	print(global.difficulty)
 	if global.difficulty == 1:
 		launcher_chance = 0
 		pollution_chance = 0

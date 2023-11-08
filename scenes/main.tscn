@@ -108,16 +108,6 @@ motion_mirroring = Vector2(0, 2399)
 texture = ExtResource("2_1omj0")
 centered = false
 
-[node name="space" type="TextureRect" parent="."]
-visible = false
-offset_left = -1575.0
-offset_top = -614.0
-offset_right = 2264.0
-offset_bottom = 1785.0
-rotation = -1.57079
-pivot_offset = Vector2(1919, 1199)
-texture = ExtResource("2_1omj0")
-
 [node name="red" type="ColorRect" parent="."]
 offset_left = -1152.0
 offset_top = -15040.0
