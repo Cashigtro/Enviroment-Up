@@ -36,6 +36,7 @@ func _physics_process(delta):
 	if is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		global.score += 1
+		$GPUParticles2D.emitting = false
 		
 		jump_sound.pitch_scale = randf_range(0.9,1.2)
 		jump_sound.play()

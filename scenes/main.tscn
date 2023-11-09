@@ -187,6 +187,20 @@ expand_mode = 3
 
 [node name="label" type="Label" parent="ui/scores/score_containers/arrow"]
 layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 286
+text = "amount"
+
+[node name="tree_of_zen" type="HSplitContainer" parent="ui/scores/score_containers"]
+layout_mode = 2
+
+[node name="tree_of_zen" type="TextureRect" parent="ui/scores/score_containers/tree_of_zen"]
+layout_mode = 2
+texture = ExtResource("4_2a8c4")
+expand_mode = 3
+
+[node name="label" type="Label" parent="ui/scores/score_containers/tree_of_zen"]
+layout_mode = 2
 theme_override_colors/font_color = Color(0, 1, 0, 1)
 theme_override_font_sizes/font_size = 286
 text = "amount"
@@ -216,6 +230,8 @@ position = Vector2(334, 581)
 
 [node name="platforms" type="Node2D" parent="."]
 script = ExtResource("3_qloub")
+pollution_chance = 3
+zen_chance = 290
 
 [node name="platform" parent="platforms" instance=ExtResource("3_atn6h")]
 position = Vector2(221, 1122)
@@ -249,6 +265,8 @@ pivot_offset = Vector2(69.5, 71.003)
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(338, 511)
+
+[node name="Timer2" type="Timer" parent="."]
 
 [connection signal="arrow_vs_pollution" from="." to="post_processing/vignette" method="_on_main_arrow_vs_pollution"]
 [connection signal="play_button_pressed" from="ui/game_over" to="." method="_on_game_over_play_button_pressed"]

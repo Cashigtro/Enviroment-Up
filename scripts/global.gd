@@ -4,3 +4,4 @@ var score = 0
 var pollution_score = 0
 var arrow_score = 0
 var difficulty 
+var zen_score = 0

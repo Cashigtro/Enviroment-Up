@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cx068j6jtr15a"]
+[gd_scene load_steps=9 format=3 uid="uid://cx068j6jtr15a"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_11enx"]
 [ext_resource type="Texture2D" uid="uid://c33h1auqowl13" path="res://player.png" id="1_kejn0"]
@@ -7,6 +7,33 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ucyag"]
 size = Vector2(111, 20)
+
+[sub_resource type="Gradient" id="Gradient_5uc67"]
+offsets = PackedFloat32Array(0.203271, 0.724299, 0.908879)
+colors = PackedColorArray(1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ad71q"]
+gradient = SubResource("Gradient_5uc67")
+width = 10
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_sepgg"]
+resource_local_to_scene = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+particle_flag_disable_z = true
+direction = Vector3(2.08165e-12, 1, 2.08165e-12)
+spread = 12.4
+initial_velocity_min = 225.35
+initial_velocity_max = 225.35
+angular_velocity_min = 22.9
+angular_velocity_max = 22.9
+orbit_velocity_min = 2.08167e-14
+orbit_velocity_max = 2.08167e-14
+radial_accel_min = 25.35
+radial_accel_max = 25.35
+scale_min = 10.0
+scale_max = 10.0
+color_ramp = SubResource("GradientTexture1D_ad71q")
 
 [node name="player" type="CharacterBody2D"]
 script = ExtResource("1_11enx")
@@ -51,3 +78,11 @@ offset_bottom = -113.0
 max_value = 2.805
 value = 0.4
 script = ExtResource("4_vuidp")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." groups=["particle"]]
+position = Vector2(4, 44)
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_sepgg")
+lifetime = 2.0
+trail_enabled = true

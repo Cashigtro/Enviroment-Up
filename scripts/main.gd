@@ -1,7 +1,7 @@
 extends Node2D
 @onready var camera = $camera
 
-@onready var bg = $bg
+#@onready var bg = $bg
 @onready var player = $player
 @onready var player_on_screen = $player.get_child(6)
 @onready var game_over_anim_player = $ui/anim/game_over_anim_player
@@ -18,7 +18,9 @@ var tween
 var shader_value = 2
 @onready var red = $red
 var color_value = Color(1,0,0,0)
-@onready var blue = $blue
+#@onready var blue = $blue
+var local_score
+@onready var tree_of_zen_label = $ui/scores/score_containers/tree_of_zen/label
 
 
 signal arrow_vs_pollution()
@@ -34,6 +36,7 @@ func _ready():
 	)
 
 func _physics_process(_delta):
+	var old_score = global.arrow_score
 	if Input.is_action_pressed("reset"):
 		get_tree().reload_current_scene()
 
@@ -41,13 +44,23 @@ func _physics_process(_delta):
 		game_over()
 	if global.score < 0:
 		game_over()
+#	print(old_score, global.arrow_score)
+#	if old_score > global.arrow_score:
+#		var total := 0.0
+#		var upscale = (global.arrow_score - old_score) /10
+#		for i in range(10):
+#			total += i
+#			arrow_label.text = " " + str(i)
+#			await get_tree().create_timer(0.5).timeout
+#
 	score_label.text = "Score: {}".format([global.score], "{}")
 	arrow_label.text = " " + str(global.arrow_score)
 	pollution_label.text = " " + str(global.pollution_score)
+	tree_of_zen_label.text = " " + str(global.zen_score)
 	
 	objects_label.text = "Objects: {}".format([platforms.get_child_count()], "{}")
 	
-	if global.pollution_score > global.arrow_score:
+	if global.pollution_score > global.arrow_score and global.pollution_score > global.zen_score:
 		if color_value.a < 1:
 			color_value.a += 0.0001
 		if shader_value > 0.001:

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cptdj5q1xvqlm"]
+
+[ext_resource type="Script" path="res://scripts/tree_of_zen.gd" id="1_j6id3"]
+[ext_resource type="Texture2D" uid="uid://domfo45oumeqc" path="res://assets/images/tree.png" id="2_dibqx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ssfl7"]
+size = Vector2(212, 233)
+
+[node name="tree_of_zen" type="Area2D"]
+script = ExtResource("1_j6id3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-5, -58.5)
+shape = SubResource("RectangleShape2D_ssfl7")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, -53)
+scale = Vector2(0.16, 0.16)
+texture = ExtResource("2_dibqx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

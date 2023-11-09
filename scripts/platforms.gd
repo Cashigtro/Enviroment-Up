@@ -4,6 +4,7 @@ extends Node2D
 @onready var platform = preload("res://scenes/platform.tscn")
 @onready var launcher = preload("res://scenes/launcher.tscn")
 @onready var pollution = preload("res://scenes/pollution.tscn")
+@onready var tree_of_zen = preload("res://scenes/tree_of_zen.tscn")
 @onready var player = $"../player"
 
 var width = ProjectSettings.get_setting("display/window/size/viewport_width")
@@ -18,17 +19,25 @@ var spawn_location = Vector2(1,1)
 @export var spawn_per_timer = 10
 @export var pollution_chance = 6
 @export var launcher_chance = 10
+@export var zen_chance = 100
 
 var prev_platform_seperation = 0
 @onready var deletion_timer = $"../deletion_timer"
 
-
+var first_timer
 var instantiated_objects = []
+
+var can_spawn = true
 
 func _ready():
 	spawn_platform()
 	difficulty()
 	timer.timeout.connect(spawn_platform)
+#	first_timer = get_tree().create_timer(0.01)
+#	first_timer.timeout.connect(
+#		func change_can_spawn():
+#			can_spawn = true
+#	)
 	
 
 func spawn_platform():
@@ -55,16 +64,21 @@ func spawn_platform():
 				
 #
 				p.position = spawn_location
-				if randi_range(0,launcher_chance) == 1:
+				if randi_range(0,launcher_chance) == 1 and can_spawn:
 					var l = launcher.instantiate()
 					l.position = Vector2(p.position.x+100, p.position.y-60)
 					platforms.add_child(l)
 					instantiated_objects.append(l)
-				if randi_range(0,pollution_chance) == 1:
+				elif randi_range(0,pollution_chance) == 1 and can_spawn:
 					var pol = pollution.instantiate()
 					pol.position = Vector2(p.position.x+100, p.position.y-60)
 					platforms.add_child(pol)
 					instantiated_objects.append(pol)
+				elif randi_range(0,zen_chance) == 1 and can_spawn:
+					var zen = tree_of_zen.instantiate()
+					zen.position = Vector2(p.position.x+100, p.position.y-60)
+					platforms.add_child(zen)
+					instantiated_objects.append(zen)
 				platforms.add_child(p)
 				instantiated_objects.append(p)
 			

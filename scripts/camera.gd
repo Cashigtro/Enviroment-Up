@@ -1,7 +1,7 @@
 extends Camera2D
 
 @export var camera_constant_y_add_amount = 100
-@onready var bg = $"../bg"
+#@onready var bg = $"../bg"
 @onready var player = $"../player"
 
 var width = ProjectSettings.get_setting("display/window/size/viewport_width")
