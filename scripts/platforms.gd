@@ -104,7 +104,7 @@ func difficulty():
 		launcher_chance = 20
 		pollution_chance = 2
 	elif global.difficulty == 6:
-		print("SD")
+#		print("SD")
 		launcher_chance = 0
 		pollution_chance = 1
 

@@ -6,5 +6,7 @@ func _ready():
 			$AudioStreamPlayer2D.play()
 	)
 
-func _on_my_button_button_up():
+
+
+func _on_play_pressed():
 	get_tree().change_scene_to_file("res://scenes/main.tscn")

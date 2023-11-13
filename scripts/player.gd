@@ -18,7 +18,7 @@ var collider
 #collider.get_child(2).disabled
 
 func _ready():
-	print(sprite.self_modulate)
+#	print(sprite.self_modulate)
 	sprite.self_modulate = Color(
 		randf_range(0,1),
 		randf_range(0,1),
@@ -36,7 +36,8 @@ func _physics_process(delta):
 	if is_on_floor():
 		velocity.y = JUMP_VELOCITY
 		global.score += 1
-		$GPUParticles2D.emitting = false
+		$launcher_particle.emitting = false
+		$tree_particle.emitting = false
 		
 		jump_sound.pitch_scale = randf_range(0.9,1.2)
 		jump_sound.play()
