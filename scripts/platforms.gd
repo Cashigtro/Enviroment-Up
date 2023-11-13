@@ -6,13 +6,7 @@ extends Node2D
 @onready var pollution = preload("res://scenes/pollution.tscn")
 @onready var tree_of_zen = preload("res://scenes/tree_of_zen.tscn")
 @onready var player = $"../player"
-
-var width = ProjectSettings.get_setting("display/window/size/viewport_width")
-var height = ProjectSettings.get_setting("display/window/size/viewport_height")
-
-var spawn_location = Vector2(1,1)
 @onready var timer = $"../Timer"
-
 @export var amount_of_platforms = 2
 @export var platform_y_seperation = 260
 @export var platform_x_amount = 2
@@ -20,28 +14,22 @@ var spawn_location = Vector2(1,1)
 @export var pollution_chance = 6
 @export var launcher_chance = 10
 @export var zen_chance = 100
-
-var prev_platform_seperation = 0
 @onready var deletion_timer = $"../deletion_timer"
 
+var spawn_location = Vector2(1,1)
+var prev_platform_seperation = 0
 var first_timer
 var instantiated_objects = []
-
 var can_spawn = true
+var width = ProjectSettings.get_setting("display/window/size/viewport_width")
+var height = ProjectSettings.get_setting("display/window/size/viewport_height")
 
 func _ready():
 	spawn_platform()
 	difficulty()
 	timer.timeout.connect(spawn_platform)
-#	first_timer = get_tree().create_timer(0.01)
-#	first_timer.timeout.connect(
-#		func change_can_spawn():
-#			can_spawn = true
-#	)
-	
 
 func spawn_platform():
-#	difficulty()
 	if player.position.y - 500 < prev_platform_seperation + 2100:
 		for e in range(spawn_per_timer):
 			for i in range(platform_x_amount):
@@ -50,19 +38,9 @@ func spawn_platform():
 					(prev_platform_seperation + platform_y_seperation) + 720
 					
 				)
-#				var delete_timer = Timer.new()
-#				delete_timer.wait_time = 10
-#				delete_timer.timeout.connect(
-#					func kill_platform():
-#						delete_timer.get_parent().queue_free()
-#						print("Deleted a platfrom")
-#				)
 				
 				var p = platform.instantiate()
-#				delete_timer.start()
-#				p.add_child(delete_timer)
 				
-#
 				p.position = spawn_location
 				if randi_range(0,launcher_chance) == 1 and can_spawn:
 					var l = launcher.instantiate()
@@ -81,13 +59,11 @@ func spawn_platform():
 					instantiated_objects.append(zen)
 				platforms.add_child(p)
 				instantiated_objects.append(p)
-			
 
 			prev_platform_seperation -= platform_y_seperation
-#	print(str(prev_platform_seperation) + "  " + str(player.position.y-500))
+
 			
 func difficulty():
-#	print(global.difficulty)
 	if global.difficulty == 1:
 		launcher_chance = 0
 		pollution_chance = 0
@@ -104,7 +80,6 @@ func difficulty():
 		launcher_chance = 20
 		pollution_chance = 2
 	elif global.difficulty == 6:
-#		print("SD")
 		launcher_chance = 0
 		pollution_chance = 1
 

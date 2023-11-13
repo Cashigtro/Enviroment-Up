@@ -2,13 +2,20 @@
 
 [ext_resource type="Script" path="res://scripts/launcher.gd" id="1_57fni"]
 [ext_resource type="Texture2D" uid="uid://0jukf5385cgu" path="res://assets/images/arrow.png" id="1_rgksa"]
-[ext_resource type="Shader" path="res://scripts/launcher.gdshader" id="2_ajcrb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ssfl7"]
 size = Vector2(97, 114)
 
+[sub_resource type="Shader" id="Shader_o3gd8"]
+code = "shader_type canvas_item;
+
+void fragment(){
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = vec4(1.0 - color.rgb, color.a);
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6tqek"]
-shader = ExtResource("2_ajcrb")
+shader = SubResource("Shader_o3gd8")
 
 [node name="launcher" type="Area2D"]
 script = ExtResource("1_57fni")

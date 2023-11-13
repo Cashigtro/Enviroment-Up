@@ -1,3 +1,5 @@
+// I didn't make this. Credit: https://github.com/Beebster-UK/Godot4-Player-Vignette-Shader-Example/blob/main/shader/vignette.gdshader
+
 shader_type canvas_item;
 uniform vec2 player_position;
 uniform vec4 color : source_color = vec4(0.305, 0.298, 0.341,1);

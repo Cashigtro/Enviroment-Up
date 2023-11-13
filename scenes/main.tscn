@@ -9,7 +9,6 @@
 [ext_resource type="Script" path="res://scripts/platforms.gd" id="3_qloub"]
 [ext_resource type="Texture2D" uid="uid://0jukf5385cgu" path="res://assets/images/arrow.png" id="4_2a8c4"]
 [ext_resource type="Script" path="res://scripts/camera.gd" id="6_l30ci"]
-[ext_resource type="Shader" path="res://scripts/main.gdshader" id="7_vjmlt"]
 [ext_resource type="AudioStream" uid="uid://bu68b7q3wgfll" path="res://assets/audio/Soft Hearted.mp3" id="7_yp2rr"]
 
 [sub_resource type="Environment" id="Environment_5dqkm"]
@@ -85,8 +84,39 @@ _data = {
 "shrink": SubResource("Animation_2wdb2")
 }
 
+[sub_resource type="Shader" id="Shader_yptmo"]
+code = "shader_type canvas_item;
+uniform vec2 player_position;
+uniform vec4 color : source_color = vec4(0.305, 0.298, 0.341,1);
+
+uniform float MULTIPLIER = 0.56;
+uniform float SCALE = 0.5;
+uniform float SOFTNESS = 0.65;
+
+
+float circle(vec2 position, float radius, float feather)
+{
+	return smoothstep(radius, radius + feather, dot(position, position ) * 8.0);
+}
+
+float vigTypeB(vec2 dude){
+	float vignette = circle(dude - vec2(player_position.x,player_position.y ), 0.1, 0.5);
+	return vignette;
+}
+
+float vigTypeA(vec2 dude){
+	float val = distance(vec2(dude.x , dude.y * MULTIPLIER), vec2(player_position.x , player_position.y * MULTIPLIER));
+	val = val / SCALE;
+	float vignette = smoothstep(0.2, SOFTNESS, val);
+	return vignette;
+}
+
+void fragment(){
+	COLOR = vec4(color.rgb , vigTypeA(UV));
+}"
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_swmmi"]
-shader = ExtResource("7_vjmlt")
+shader = SubResource("Shader_yptmo")
 shader_parameter/player_position = Vector2(0.5, 0.5)
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/MULTIPLIER = 2.0
@@ -210,14 +240,6 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-
-[node name="Button" type="Button" parent="ui"]
-visible = false
-offset_left = 254.0
-offset_top = 24.0
-offset_right = 706.0
-offset_bottom = 149.0
-text = "debufg"
 
 [node name="music" type="AudioStreamPlayer2D" parent="."]
 process_mode = 3

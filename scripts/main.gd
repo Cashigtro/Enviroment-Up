@@ -1,27 +1,26 @@
 extends Node2D
-@onready var camera = $camera
 
-#@onready var bg = $bg
+@onready var camera = $camera
 @onready var player = $player
 @onready var player_on_screen = $player.get_child(6)
 @onready var game_over_anim_player = $ui/anim/game_over_anim_player
 @onready var game_over_screen = $ui/game_over
 @onready var platforms = $platforms
 @onready var objects_label = $ui/objects
-var timer_done = false
 @onready var score_label = $ui/score
-var tween
 @onready var player_move_away = $ui/anim/player_move_away
 @onready var pollution_label = $ui/scores/score_containers/pollution/label
 @onready var arrow_label = $ui/scores/score_containers/arrow/label
 @onready var vignette = $post_processing/vignette
-var shader_value = 2
 @onready var red = $red
-var color_value = Color(1,0,0,0)
-#@onready var blue = $blue
-var local_score
 @onready var tree_of_zen_label = $ui/scores/score_containers/tree_of_zen/label
+@onready var music = $music
 
+var timer_done = false
+var shader_value = 2
+var color_value = Color(1,0,0,0)
+var local_score
+var tween
 
 signal arrow_vs_pollution()
 
@@ -30,9 +29,9 @@ func _ready():
 		func timout():
 			timer_done = true
 	)
-	$music.finished.connect(
+	music.finished.connect(
 		func play_again():
-			$music.play()
+			music.play()
 	)
 
 func _physics_process(_delta):
@@ -44,15 +43,7 @@ func _physics_process(_delta):
 		game_over()
 	if global.score < 0:
 		game_over()
-#	print(old_score, global.arrow_score)
-#	if old_score > global.arrow_score:
-#		var total := 0.0
-#		var upscale = (global.arrow_score - old_score) /10
-#		for i in range(10):
-#			total += i
-#			arrow_label.text = " " + str(i)
-#			await get_tree().create_timer(0.5).timeout
-#
+
 	score_label.text = "Score: {}".format([global.score], "{}")
 	arrow_label.text = " " + str(global.arrow_score)
 	pollution_label.text = " " + str(global.pollution_score)
@@ -74,23 +65,12 @@ func _physics_process(_delta):
 	
 	if 0.001 > shader_value:
 		game_over()
+
 	vignette.material.set_shader_parameter("SCALE", shader_value)
 	vignette.position = Vector2(player.position.x - 60, player.position.y - 160)
 	red.color = color_value
 	red.position = player.position
 	
-	
-	
-#	space.position = Vector2(space.position.x, snapped(player.position.y, 10))
-#	lerp(player.position.y, snapped(player.position.y, 10), 1)
-
-#	create_tween().tween_property(space, "position", Vector2(space.position.x, player.position.y), 2).set_ease(Tween.EASE_IN_OUT)
-	
-	
-	$ui/Button.pressed.connect(
-		func what():
-			global.pollution_score = 323
-	)
 
 func reset_scores():
 	global.score = 0
@@ -98,21 +78,15 @@ func reset_scores():
 	global.pollution_score = 0	
 
 func game_over():
-
-
+	
 	game_over_screen.visible = true
 	game_over_anim_player.play("in")
 	player_move_away.play("shrink")
-#	tween = create_tween().set_parallel(true)
-#	tween.tween_property(player, "position", camera.position, 1)
-#	await tween.finished
 	get_tree().paused = true
 	await game_over_anim_player.animation_finished
-	
 
 func _on_game_over_play_button_pressed():
 	get_tree().paused = false
 	reset_scores()
-#	tween.kill()
 	game_over_screen.visible = false
 	get_tree().reload_current_scene()
